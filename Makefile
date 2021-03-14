@@ -22,3 +22,7 @@ setup-development-pipenv:
 # run this inside the virtual environment
 train:
 	dvc repro train
+
+# run this inside the virtual environment
+test-service:
+	PYTHONPATH=serving/app/ python serving/tests/test_lambda_handler.py
