@@ -1,17 +1,17 @@
-from aws_cdk import (core,
+from aws_cdk import (core as cdk,
                      aws_apigateway as apigateway,
                      aws_s3 as s3,
                      aws_lambda as lambda_)
 
-class ExampleService(core.Stack):
-    def __init__(self, scope: core.Construct, id: str):
+class ExampleService(cdk.Stack):
+    def __init__(self, scope: cdk.Construct, id: str):
         super().__init__(scope, id)
 
         handler = lambda_.DockerImageFunction(
             self,
             "ExampleDockerHandler",
             code=lambda_.DockerImageCode.from_image_asset("../app"),
-            timeout=core.Duration.seconds(30),
+            timeout=cdk.Duration.seconds(30),
             memory_size=2048
         )
 
