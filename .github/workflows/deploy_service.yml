@@ -1,9 +1,9 @@
-name: Deploy service
+name: Deploy service on merge
 
 # on merge
 on:
   push:
-    branches-ignore:
+    branches:
       - main
     paths:
     - 'serving/**'

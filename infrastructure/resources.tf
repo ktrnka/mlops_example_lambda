@@ -72,6 +72,20 @@ resource "aws_iam_user_policy" "cdk_policy" {
             "Action": "s3:*",
             "Resource": "arn:aws:s3:::cdktoolkit-stagingbucket-*",
             "Effect": "Allow"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:DescribeRepositories",
+            "ecr:DescribeImages",
+            "ecr:GetAuthorizationToken",
+            "ecr:InitiateLayerUpload",
+            "ecr:UploadLayerPart",
+            "ecr:CompleteLayerUpload",
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:PutImage"
+          ],
+          "Resource": "*"
         }
 
   ]
