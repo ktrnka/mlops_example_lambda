@@ -3,8 +3,7 @@ name: Test-deploy service
 # on merge
 on:
   push:
-    # while developing, run this on branches not on main
-    branches-ignore:
+    branches:
       - main
     paths:
     - 'serving/**'
@@ -32,7 +31,12 @@ jobs:
       run: sudo npm install -g aws-cdk
     - name: Install CDK Python dependencies
       run: pip install -r requirements.txt
-    - run: cdk synth
+    - run: cdk diff
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-west-2
+    - run: cdk deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
