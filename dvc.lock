@@ -12,5 +12,5 @@ stages:
       md5: 602b530d48d3cb24de87b1f2646c6f15
       size: 150
     - path: serving/app/data/model.joblib.gz
-      md5: 4dd617eea311da3b6935a14249018dc0
-      size: 42424286
+      md5: d2a6b958ae120b89466470bcbd50f3ef
+      size: 42424496
