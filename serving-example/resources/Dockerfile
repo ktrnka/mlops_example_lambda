@@ -10,4 +10,7 @@ COPY app.py ./
 # data
 COPY data ./data
 
+# maybe this will silence joblib warnings
+ENV OPENBLAS_NUM_THREADS=1
+
 CMD ["app.lambda_handler"]

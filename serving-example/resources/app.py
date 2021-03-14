@@ -1,6 +1,6 @@
 import json
-import joblib
 import os.path
+import joblib
 
 model_path = os.path.join(os.path.dirname(__file__), "data/model.joblib.gz", )
 model = joblib.load(model_path)
