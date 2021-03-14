@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from aws_cdk import core as cdk
-from serving_example.lambda_service import ExampleService
+from serving_example.lambda_service import TextClassifierService
 
 
 app = cdk.App()
-ExampleService(app, "ServingExampleStack")
+TextClassifierService(app, "ExampleTextClassifierStack")
 app.synth()
