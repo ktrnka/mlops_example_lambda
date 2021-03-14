@@ -1,0 +1,36 @@
+name: Test-deploy service
+
+# on merge
+on:
+  push:
+    # while developing, run this on branches not on main
+    branches-ignore:
+      - main
+    paths:
+    - 'serving/**'
+    - '.github/workflows/deploy_service.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: serving/deployment
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Checkout data (DVC)
+      run: |
+        pip install dvc[s3]
+        dvc pull
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Install CDK
+      run: npm install -g aws-cdk
+    - name: Install CDK Python dependencies
+      run: pip install -r requirements.txt
+    - run: cdk synth
+
