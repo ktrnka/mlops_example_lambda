@@ -30,7 +30,7 @@ def main():
     testing_data.target = [testing_data.target_names[t] for t in testing_data.target]
 
     model = make_pipeline(
-        TfidfVectorizer(min_df=40, ngram_range=(1, 1), sublinear_tf=True),
+        TfidfVectorizer(min_df=40, ngram_range=(1, 2), sublinear_tf=True),
         LogisticRegressionCV()
     )
 
