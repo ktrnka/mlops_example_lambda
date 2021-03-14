@@ -7,11 +7,12 @@ from aws_cdk import core as cdk
 # with examples from the CDK Developer's Guide, which are in the process of
 # being updated to use `cdk`.  You may delete this import if you don't need it.
 from aws_cdk import core
+from serving_example.lambda_service import ExampleService
 
 from serving_example.serving_example_stack import ServingExampleStack
 
 
 app = core.App()
-ServingExampleStack(app, "ServingExampleStack")
-
+# ServingExampleStack(app, "ServingExampleStack")
+ExampleService(app, "ServingExampleStack")
 app.synth()
