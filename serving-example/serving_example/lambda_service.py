@@ -10,7 +10,9 @@ class ExampleService(core.Stack):
         handler = lambda_.DockerImageFunction(
             self,
             "ExampleDockerHandler",
-            code=lambda_.DockerImageCode.from_image_asset("resources")
+            code=lambda_.DockerImageCode.from_image_asset("resources"),
+            timeout=core.Duration.seconds(30),
+            memory_size=2048
         )
 
         api = apigateway.RestApi(self, "example-cdk-api",
