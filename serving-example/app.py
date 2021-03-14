@@ -9,10 +9,7 @@ from aws_cdk import core as cdk
 from aws_cdk import core
 from serving_example.lambda_service import ExampleService
 
-from serving_example.serving_example_stack import ServingExampleStack
-
 
 app = core.App()
-# ServingExampleStack(app, "ServingExampleStack")
 ExampleService(app, "ServingExampleStack")
 app.synth()
