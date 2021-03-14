@@ -15,4 +15,8 @@ class ServingExampleStack(cdk.Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # The code that defines your stack goes here
-        bucket = s3.Bucket(self, "ServingExampleBucket", versioned=True)
+        bucket = s3.Bucket(self,
+                           "ServingExampleBucket",
+                           versioned=True,
+                           removal_policy=core.RemovalPolicy.DESTROY,
+                           auto_delete_objects=True)
