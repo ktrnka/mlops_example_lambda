@@ -1,0 +1,37 @@
+name: Train model
+
+# when a branch is pushed and it updates the training code or this file
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+    - 'training/**'
+    - '.github/workflows/train_model.yml'
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: pip install -r training/requirements.txt
+      - name: Train model
+        run: make train
+      - run: pip install -r serving/app/requirements.txt
+      - name: Run web service tests
+        run: make test-service
+      - name: Commit model
+        # email address from https://github.community/t/github-actions-bot-email-address/17204/5
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -am "Automated model build"
+          dvc push
+          git push
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
