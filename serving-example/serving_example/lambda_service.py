@@ -7,17 +7,11 @@ class ExampleService(core.Stack):
     def __init__(self, scope: core.Construct, id: str):
         super().__init__(scope, id)
 
-        bucket = s3.Bucket(self, "ExampleServiceStorage")
-
-        handler = lambda_.Function(self, "ExampleServiceHandler",
-                    runtime=lambda_.Runtime.PYTHON_3_8,
-                    code=lambda_.Code.from_asset("resources"),
-                    handler="app.lambda_handler",
-                    environment=dict(
-                        BUCKET=bucket.bucket_name)
-                    )
-
-        bucket.grant_read_write(handler)
+        handler = lambda_.DockerImageFunction(
+            self,
+            "ExampleDockerHandler",
+            code=lambda_.DockerImageCode.from_image_asset("resources")
+        )
 
         api = apigateway.RestApi(self, "example-cdk-api",
                   rest_api_name="Example service",
@@ -26,4 +20,4 @@ class ExampleService(core.Stack):
         api_integration = apigateway.LambdaIntegration(handler,
                 request_templates={"application/json": '{ "statusCode": "200" }'})
 
-        api.root.add_method("GET", api_integration)   # GET /
+        api.root.add_method("GET", api_integration)
