@@ -23,7 +23,7 @@ class TextClassifierService(cdk.Stack):
 
         api_integration = apigateway.LambdaIntegration(
             handler,
-            # I'm not sure if this is needed; copied from an example
+            # I'm not sure if this is needed; I copied it from an example
             request_templates={"application/json": '{ "statusCode": "200" }'}
         )
 

@@ -6,17 +6,17 @@ with open("README.md") as fp:
 
 
 setuptools.setup(
-    name="serving_example",
-    version="0.0.1",
+    name="stacks",
+    version="0.0.2",
 
-    description="An empty CDK Python app",
+    description="CDK stacks for an example text classifier API",
     long_description=long_description,
     long_description_content_type="text/markdown",
 
-    author="author",
+    author="Keith Trnka",
 
-    package_dir={"": "serving_example"},
-    packages=setuptools.find_packages(where="serving_example"),
+    package_dir={"": "stacks"},
+    packages=setuptools.find_packages(where="stacks"),
 
     install_requires=[
         "aws-cdk.core==1.93.0",
