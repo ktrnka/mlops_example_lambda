@@ -20,7 +20,7 @@ jobs:
       - run: pip install -r training/requirements.txt
       - name: Train model
         run: make train
-      - run: pip install -r serving/requirements.txt
+      - run: pip install -r serving/app/requirements.txt
       - name: Run web service tests
         run: make test-service
       - name: Commit model
