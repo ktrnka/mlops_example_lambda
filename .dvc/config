@@ -1,4 +1,4 @@
 [core]
     remote = main_remote
 ['remote "main_remote"']
-    url = s3://s3://trnka-dvc-20210314202029041400000001/dvc
+    url = s3://trnka-dvc-20210314202029041400000001/dvc
