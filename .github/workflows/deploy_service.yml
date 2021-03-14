@@ -1,4 +1,4 @@
-name: Test-deploy service
+name: Deploy service on merge
 
 # on merge
 on:
