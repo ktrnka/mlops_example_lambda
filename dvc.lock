@@ -4,13 +4,13 @@ stages:
     cmd: python training/src/main.py serving/app/data/ serving/app/requirements.txt
     deps:
     - path: training/
-      md5: 6f9541e96b342f1c4f749d2383831c30.dir
+      md5: 98975cc805fcc60a5c8581795683de0b.dir
       size: 4118
       nfiles: 2
     outs:
     - path: serving/app/data/metrics.json
-      md5: 602b530d48d3cb24de87b1f2646c6f15
+      md5: 38aad9eb262355230cf36b79c5875e1b
       size: 150
     - path: serving/app/data/model.joblib.gz
-      md5: d2a6b958ae120b89466470bcbd50f3ef
-      size: 42424496
+      md5: 1b0030368173685e6fe2dbdb2d3aa84f
+      size: 97772745
