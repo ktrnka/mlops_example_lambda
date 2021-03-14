@@ -20,4 +20,4 @@ class ExampleService(core.Stack):
         api_integration = apigateway.LambdaIntegration(handler,
                 request_templates={"application/json": '{ "statusCode": "200" }'})
 
-        api.root.add_method("GET", api_integration)
+        api.root.add_method("POST", api_integration)
