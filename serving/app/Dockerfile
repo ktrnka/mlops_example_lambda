@@ -12,6 +12,6 @@ COPY data ./data
 
 # This reduces joblib warnings.
 # Some docs say it'll speed things up, others say it'll slow things down. I've only done 1 test
-ENV OPENBLAS_NUM_THREADS=1
+#ENV OPENBLAS_NUM_THREADS=1
 
 CMD ["app.lambda_handler"]

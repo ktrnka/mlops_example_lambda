@@ -10,8 +10,8 @@ class TextClassifierService(cdk.Stack):
             self,
             "ExampleTextClassifierHandler",
             code=lambda_.DockerImageCode.from_image_asset("../app"),
-            timeout=cdk.Duration.seconds(30),
-            memory_size=10240
+            timeout=cdk.Duration.seconds(60),
+            memory_size=3008
         )
 
         api = apigateway.RestApi(
