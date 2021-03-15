@@ -1,4 +1,5 @@
 # This will install or upgrade an install
+# Note: This doesn't work on github actions (ubuntu); it needs to run under sudo there
 install-cdk:
 	npm install -g aws-cdk@latest
 
@@ -10,6 +11,7 @@ install-cdk:
 
 
 # env just for development that has pretty much everything so I don't need to maintain 3 local envs
+# SYSTEM_VERSION_COMPAT=1 is a workaround for python modules that don't install correctly on Big Sur
 setup-development-pipenv:
 	rm -rf Pipfile
 	SYSTEM_VERSION_COMPAT=1 pipenv --python 3.8
