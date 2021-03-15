@@ -21,6 +21,8 @@ I've only set this up once so take this with a grain of salt.
 
 # What's where?
 
+* `.dvc`: Configuration for DVC, which is how we version models and link the model versions to git
+* `.github`: Configuration for the CI/CD pipeline in Github Actions
 * `infrastructure`: This sets up AWS resources for the repo and makes a user to run the deployments
 * `serving/app`: The actual lambda service code
 * `serving/app/data`: The model is stored here
