@@ -13,7 +13,7 @@ class EmfMetrics:
     @staticmethod
     def setup():
         metrics_config = get_config()
-        metrics_config.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", metrics_config.namespace)
+        metrics_config.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", metrics_config.namespace) + "_emf"
 
         # This speeds up unit tests; otherwise it auto-detects and tries to connect to HTTP sockets
         metrics_config.environment = os.environ.get("AWS_EXECUTION_ENV", "local")
@@ -37,7 +37,7 @@ class Boto3Metrics:
     def put_metric_data(metric_name, value, unit):
         if Boto3Metrics.namespace:
             Boto3Metrics.client.put_metric_data(
-                Namespace=Boto3Metrics.namespace,
+                Namespace=Boto3Metrics.namespace + "_boto3",
                 MetricData=[
                     {
                         'MetricName': metric_name,
@@ -62,12 +62,12 @@ def load_model():
     model = joblib.load(model_path)
 
     duration_seconds = time.time() - start_time
-    EmfMetrics.put_duration("load_model.duration", duration_seconds)
+    Boto3Metrics.put_duration("load_model.duration", duration_seconds)
 
     return model
 
 
-EmfMetrics.setup()
+# EmfMetrics.setup()
 model = load_model()
 
 
@@ -75,7 +75,7 @@ def lambda_handler(event, context):
     request_body = json.loads(event["body"])
     prediction = str(model.predict([request_body["text"]])[0])
 
-    EmfMetrics.put_count("input.num_chars", len(request_body["text"]))
+    Boto3Metrics.put_count("input.num_chars", len(request_body["text"]))
 
     return {
         "statusCode": 200,
