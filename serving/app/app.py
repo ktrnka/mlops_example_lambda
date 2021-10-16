@@ -9,6 +9,10 @@ from aws_embedded_metrics.config import get_config
 metrics_config = get_config()
 metrics_config.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", metrics_config.namespace)
 
+# The specific env var isn't too important. What's important is that it'll be set on lambda, and local otherwise
+# This speeds up unit tests; otherwise it auto-detects and tries to connect to HTTP sockets
+metrics_config.environment = os.environ.get("AWS_EXECUTION_ENV", "local")
+
 
 @metric_scope
 def load_model(metrics: MetricsLogger):
