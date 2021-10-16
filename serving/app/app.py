@@ -62,12 +62,12 @@ def load_model():
     model = joblib.load(model_path)
 
     duration_seconds = time.time() - start_time
-    Boto3Metrics.put_duration("load_model.duration", duration_seconds)
+    EmfMetrics.put_duration("load_model.duration", duration_seconds)
 
     return model
 
 
-# EmfMetrics.setup()
+EmfMetrics.setup()
 model = load_model()
 
 
@@ -75,7 +75,7 @@ def lambda_handler(event, context):
     request_body = json.loads(event["body"])
     prediction = str(model.predict([request_body["text"]])[0])
 
-    Boto3Metrics.put_count("input.num_chars", len(request_body["text"]))
+    EmfMetrics.put_count("input.num_chars", len(request_body["text"]))
 
     return {
         "statusCode": 200,
