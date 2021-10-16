@@ -50,3 +50,9 @@ I've only set this up once so take this with a grain of salt.
 * If you don't have much volume, it can autoscale down to zero. That saves money but you get a high percent of requests as cold starts: Lambda loads the machine learning model from scratch before handling the request.
 * It's hard to set timeouts correctly - cold starts can easily take 30 seconds, and you can't figure it out on your local machine
 * Compared to Flask in Docker, it's more work to set up the API for validation and documentation
+
+# Cloudwatch EMF Notes
+
+* aws-embedded-metrics
+  * It doesn't add many dependencies!
+  * It causes warnings in unit tests and seems to slow them down - it's trying to open a socket to a number of ports on localhost, which I'm guessing is its way of streaming to Cloudwatch on EC2
