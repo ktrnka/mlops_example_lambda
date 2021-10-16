@@ -18,9 +18,8 @@ setup-development-pipenv:
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r training/requirements.txt
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r serving/app/requirements.txt
 
-# If you need to run commands like cdk destroy, this is needed first
-install-cdk-deps:
-	cd serving/deployment/ && pipenv run pip install -r requirements.txt
+	SYSTEM_VERSION_COMPAT=1 cd serving/deployment/ && pipenv run pip install -r requirements.txt
+	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock locust
 
 # run this inside the virtual environment
 train:
