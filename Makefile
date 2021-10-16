@@ -28,3 +28,7 @@ train:
 # run this inside the virtual environment
 test-service:
 	PYTHONPATH=serving/app/ python serving/tests/test_lambda_handler.py
+
+# this will bring up the web UI and you'll need to enter the URL
+load-test:
+	pipenv run locust -f tests/locust_file.py --users 50 --spawn-rate 0.2
