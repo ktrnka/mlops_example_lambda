@@ -55,11 +55,9 @@ I've only set this up once so take this with a grain of salt.
 
 * aws-embedded-metrics
   * It doesn't add many dependencies!
-  * It causes warnings in unit tests and seems to slow them down - it's trying to open a socket to a number of ports on localhost, which I'm guessing is its way of streaming to Cloudwatch on EC2
   * Default dimensions: LogGroup, ServiceName, ServiceType (an example is below)
-  * EMF logs are pretty verbose
-  * The default namespace is weird - I really want it to be the service name
-* How can we get the lambda's namespace _before_ the lambda handler? It's available from the context object but I want to log the model loading time and put it in a namespace akin to the function
+  * You have to set the namespace manually if you want it to be the function name.
+  * You have to set the execution environment to "local" when testing to ensure that it doesn't try opening a bunch of sockets to try streaming cloudwatch logs
 
 ## Example EMF log
 
