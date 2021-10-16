@@ -18,8 +18,9 @@ setup-development-pipenv:
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r training/requirements.txt
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r serving/app/requirements.txt
 
-	# maybe pipenv doesn't support this style? it throws a syntax error trying to parse the setup.py reference
-	#SYSTEM_VERSION_COMPAT=1 cd serving/deployment/ && pipenv install --skip-lock -r requirements.txt
+# If you need to run commands like cdk destroy, this is needed first
+install-cdk-deps:
+	cd serving/deployment/ && pipenv run pip install -r requirements.txt
 
 # run this inside the virtual environment
 train:
