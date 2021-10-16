@@ -1,6 +1,8 @@
 from aws_cdk import (core as cdk,
                      aws_apigateway as apigateway,
                      aws_lambda as lambda_)
+from aws_cdk.aws_iam import PolicyStatement
+
 
 class TextClassifierService(cdk.Stack):
     def __init__(self, scope: cdk.Construct, id: str):
@@ -13,6 +15,8 @@ class TextClassifierService(cdk.Stack):
             timeout=cdk.Duration.seconds(60),
             memory_size=3008
         )
+
+        handler.add_to_role_policy(PolicyStatement(actions=["cloudwatch:PutMetricData"], resources=["*"]))
 
         api = apigateway.RestApi(
             self,
