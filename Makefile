@@ -31,4 +31,4 @@ test-service:
 
 # this will bring up the web UI and you'll need to enter the URL
 load-test:
-	pipenv run locust -f tests/locust_file.py --users 50 --spawn-rate 0.2
+	pipenv run locust -f serving/tests/locust_file.py --users 50 --spawn-rate 0.2
