@@ -30,14 +30,17 @@ class EmfMetrics:
 
 
 class Boto3Metrics:
-    client = boto3.client("cloudwatch")
-    namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", None)
+    def __init__(self):
+        self.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", None)
 
-    @staticmethod
-    def put_metric_data(metric_name, value, unit):
-        if Boto3Metrics.namespace:
-            Boto3Metrics.client.put_metric_data(
-                Namespace=Boto3Metrics.namespace + "_boto3",
+        self.client = None
+        if self.namespace:
+            self.client = boto3.client("cloudwatch")
+
+    def put_metric_data(self, metric_name: str, value, unit: str):
+        if self.client:
+            self.client.put_metric_data(
+                Namespace=self.namespace + "_boto3",
                 MetricData=[
                     {
                         "MetricName": metric_name,
@@ -47,13 +50,11 @@ class Boto3Metrics:
                     },
                 ])
 
-    @staticmethod
-    def put_duration(name: str, duration_seconds: float):
-        Boto3Metrics.put_metric_data(name, duration_seconds, "Seconds")
+    def put_duration(self, name: str, duration_seconds: float):
+        self.put_metric_data(name, duration_seconds, "Seconds")
 
-    @staticmethod
-    def put_count(name: str, count: int):
-        Boto3Metrics.put_metric_data(name, count, "Count")
+    def put_count(self, name: str, count: int):
+        self.put_metric_data(name, count, "Count")
 
 
 def load_model():
