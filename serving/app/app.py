@@ -30,7 +30,7 @@ class EmfMetrics:
 
 
 class Boto3Metrics:
-    client = boto3.client('cloudwatch')
+    client = boto3.client("cloudwatch")
     namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", None)
 
     @staticmethod
@@ -40,10 +40,10 @@ class Boto3Metrics:
                 Namespace=Boto3Metrics.namespace + "_boto3",
                 MetricData=[
                     {
-                        'MetricName': metric_name,
-                        'Timestamp': datetime.now(),
-                        'Value': value,
-                        'Unit': unit
+                        "MetricName": metric_name,
+                        "Timestamp": datetime.now(),
+                        "Value": value,
+                        "Unit": unit
                     },
                 ])
 
