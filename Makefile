@@ -18,9 +18,8 @@ setup-development-pipenv:
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r training/requirements.txt
 	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock -r serving/app/requirements.txt
 
-# If you need to run commands like cdk destroy, this is needed first
-install-cdk-deps:
-	cd serving/deployment/ && pipenv run pip install -r requirements.txt
+	SYSTEM_VERSION_COMPAT=1 cd serving/deployment/ && pipenv run pip install -r requirements.txt
+	SYSTEM_VERSION_COMPAT=1 pipenv install --skip-lock locust
 
 # run this inside the virtual environment
 train:
@@ -29,3 +28,7 @@ train:
 # run this inside the virtual environment
 test-service:
 	PYTHONPATH=serving/app/ python serving/tests/test_lambda_handler.py
+
+# this will bring up the web UI and you'll need to enter the URL
+load-test:
+	pipenv run locust -f serving/tests/locust_file.py --users 50 --spawn-rate 0.2
