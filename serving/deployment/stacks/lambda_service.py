@@ -16,7 +16,8 @@ class TextClassifierService(cdk.Stack):
             memory_size=3008
         )
 
-        handler.add_to_role_policy(PolicyStatement(actions=["cloudwatch:PutMetricData"], resources=["*"]))
+        # If you're using boto3 to log custom metrics
+        # handler.add_to_role_policy(PolicyStatement(actions=["cloudwatch:PutMetricData"], resources=["*"]))
 
         api = apigateway.RestApi(
             self,
