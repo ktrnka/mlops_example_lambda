@@ -10,6 +10,7 @@ from aws_embedded_metrics.config import get_config
 
 
 class EmfMetrics:
+    """Cloudwatch Embedded Metrics Format (EMF) for custom metrics"""
     @staticmethod
     def setup():
         metrics_config = get_config()
@@ -30,6 +31,7 @@ class EmfMetrics:
 
 
 class Boto3Metrics:
+    """Boto3 for CloudWatch Custom Metrics"""
     def __init__(self):
         self.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", None)
 
@@ -63,6 +65,8 @@ def load_model():
     model = joblib.load(model_path)
 
     duration_seconds = time.time() - start_time
+
+    # TODO: Replace this with a function decorator that computes the duration for you
     EmfMetrics.put_duration("load_model.duration", duration_seconds)
 
     return model
@@ -76,6 +80,7 @@ def lambda_handler(event, context):
     request_body = json.loads(event["body"])
     prediction = str(model.predict([request_body["text"]])[0])
 
+    # the input length isn't all that interesting, mainly for testing
     EmfMetrics.put_count("input.num_chars", len(request_body["text"]))
 
     return {
