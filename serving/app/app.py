@@ -3,7 +3,6 @@ import os.path
 import time
 from datetime import datetime
 
-import boto3
 import joblib
 from aws_embedded_metrics import metric_scope, MetricsLogger
 from aws_embedded_metrics.config import get_config
@@ -29,34 +28,6 @@ class EmfMetrics:
     def put_count(name: str, count: int, metrics: MetricsLogger):
         metrics.put_metric(name, count, "Count")
 
-
-class Boto3Metrics:
-    """Boto3 for CloudWatch Custom Metrics"""
-    def __init__(self):
-        self.namespace = os.environ.get("AWS_LAMBDA_FUNCTION_NAME", None)
-
-        self.client = None
-        if self.namespace:
-            self.client = boto3.client("cloudwatch")
-
-    def put_metric_data(self, metric_name: str, value, unit: str):
-        if self.client:
-            self.client.put_metric_data(
-                Namespace=self.namespace + "_boto3",
-                MetricData=[
-                    {
-                        "MetricName": metric_name,
-                        "Timestamp": datetime.now(),
-                        "Value": value,
-                        "Unit": unit
-                    },
-                ])
-
-    def put_duration(self, name: str, duration_seconds: float):
-        self.put_metric_data(name, duration_seconds, "Seconds")
-
-    def put_count(self, name: str, count: int):
-        self.put_metric_data(name, count, "Count")
 
 
 def load_model():
