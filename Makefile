@@ -1,5 +1,6 @@
 # This will install or upgrade an install
 # Note: This doesn't work on github actions (ubuntu); it needs to run under sudo there
+# If you don't have npm it'll error. On OS X if you have brew you can brew install npm
 install-cdk:
 	npm install -g aws-cdk@latest
 
