@@ -51,9 +51,6 @@ def lambda_handler(event, context):
     request_body = json.loads(event["body"])
     prediction = model.predict([request_body["text"]])[0]
 
-    # the input length isn't all that interesting, mainly for testing
-    EmfMetrics.put_count("input.num_chars", len(request_body["text"]))
-
     return {
         "statusCode": 200,
         "body": json.dumps({
